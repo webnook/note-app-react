@@ -4,16 +4,16 @@ import NoteList from "./components/NoteList";
 import NoteStatus from "./components/NoteStatus";
 import NoteHeader from "./components/NoteHeader";
 
-function noteReducer(state, { type, payload }) {
+function noteReducer(notes, { type, payload }) {
   switch (type) {
     case "add": {
-      return [...state, payload];
+      return [...notes, payload];
     }
     case "delete": {
-      return state.filter((s) => s.id !== payload);
+      return notes.filter((note) => note.id !== payload);
     }
     case "complete": {
-      return state.map((note) =>
+      return notes.map((note) =>
         note.id === payload ? { ...note, completed: !note.completed } : note
       );
     }
