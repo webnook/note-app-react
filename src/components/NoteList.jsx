@@ -1,4 +1,4 @@
-import { IoTrashBin } from "react-icons/io5";
+import { TrashIcon } from "@heroicons/react/24/solid";
 
 const NoteList = ({ notes, onDelete, oncomplete, sortBy }) => {
   let sortedNotes = notes;
@@ -55,7 +55,7 @@ const NoteItem = ({ note, onDelete, oncomplete }) => {
         </div>
         <div className="flex items-center gap-4">
           <button onClick={() => onDelete(note.id)} className="text-sm">
-            <IoTrashBin className="text-red-500 w-4 h-4 md:w-5 md:h-5" />
+            <TrashIcon className="text-red-500 w-4 h-4 md:w-5 md:h-5" />
           </button>
           <input
             onChange={oncomplete}
