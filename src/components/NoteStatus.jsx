@@ -1,6 +1,8 @@
+import { useNotes } from "../context/NoteContext";
 import Message from "./Message";
 
-const NoteStatus = ({ notes }) => {
+const NoteStatus = () => {
+  const notes = useNotes();
   const allNotes = notes.length;
   const completedNotes = notes.filter((n) => n.completed).length;
 
@@ -8,7 +10,7 @@ const NoteStatus = ({ notes }) => {
     return (
       <Message>
         <h2 className="text-xl md:text-xl text-slate-800 font-bold">
-        ✅  No Notes has already been added
+          ✅ No Notes has already been added
         </h2>
       </Message>
     );

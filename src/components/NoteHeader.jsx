@@ -1,4 +1,7 @@
-const NoteHeader = ({ notes, sortBy, onSort }) => {
+import { useNotes } from "../context/NoteContext";
+
+const NoteHeader = ({ sortBy, onSort }) => {
+  const notes = useNotes()
   return (
     <div className="flex flex-col md:flex-row items-center justify-evenly mb-12 border-b border-b-gray-400 py-2">
       <h1 className="text-2xl mb-4 md:text-4xl font-bold text-slate-900 py-1">

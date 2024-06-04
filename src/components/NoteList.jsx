@@ -1,6 +1,8 @@
 import { TrashIcon } from "@heroicons/react/24/solid";
+import { useNotes, useNotesDispatch } from "../context/NoteContext";
 
-const NoteList = ({ notes, onDelete, oncomplete, sortBy }) => {
+const NoteList = ({ sortBy }) => {
+  const notes = useNotes();
   let sortedNotes = notes;
   if (sortBy === "earliest")
     sortedNotes = [...notes].sort(
@@ -17,12 +19,7 @@ const NoteList = ({ notes, onDelete, oncomplete, sortBy }) => {
   return (
     <div>
       {sortedNotes.map((note) => (
-        <NoteItem
-          key={note.id}
-          note={note}
-          onDelete={onDelete}
-          oncomplete={oncomplete}
-        />
+        <NoteItem key={note.id} note={note} />
       ))}
     </div>
   );
@@ -30,12 +27,14 @@ const NoteList = ({ notes, onDelete, oncomplete, sortBy }) => {
 
 export default NoteList;
 
-const NoteItem = ({ note, onDelete, oncomplete }) => {
+const NoteItem = ({ note }) => {
+  const dispatch = useNotesDispatch();
   const options = {
     year: "numeric",
     month: "long",
     day: "numeric",
   };
+
   return (
     <div className="bg-white p-4 rounded-xl mb-6">
       <div
@@ -54,11 +53,16 @@ const NoteItem = ({ note, onDelete, oncomplete }) => {
           </p>
         </div>
         <div className="flex items-center gap-4">
-          <button onClick={() => onDelete(note.id)} className="text-sm">
+          <button
+            onClick={() => dispatch({ type: "delete", payload: note.id })}
+            className="text-sm">
             <TrashIcon className="text-red-500 w-4 h-4 md:w-5 md:h-5" />
           </button>
           <input
-            onChange={oncomplete}
+            onChange={(e) => {
+              const noteId = Number(e.target.value);
+              dispatch({ type: "complete", payload: noteId });
+            }}
             value={note.id}
             className="form-checkbox rounded-sm w-4 h-4"
             type="checkbox"
